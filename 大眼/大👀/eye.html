@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大眼</title>
+    <div class="eyeSocket eyeSocketSleeping" id='bigEye'>
+        <div id="eyeball" width="100%" height="100%"></div>
+    </div>
+    <div class="filter">
+        <div class="eyeSocket" id='eyeFilter'>
+        </div>
+    </div>
+    <!-- Svg滤镜 -->
+    <svg width="0">
+        <filter id='filter'>
+            <feTurbulence baseFrequency="1">
+                <animate id="animate1" attributeName="baseFrequency" dur="1s" from="0.5" to="0.55"
+                    begin="0s;animate1.end">
+                </animate>
+                <animate id="animate2" attributeName="baseFrequency" dur="1s" from="0.55" to="0.5" begin="animate2.end">
+                </animate>
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" scale="50" xChannelSelector="R" yChannelSelector="B" />
+        </filter>
+    </svg>
+
+
+
+    <!-- 引入ecarts画布文件 -->
+    <script src="echarts.min.js"></script>
+</head>
+
+<body>
+    <link rel="stylesheet" href="style.css">
+</body>
+<!-- 引入大眼js文件 -->
+<script src="eye.js"></script>
+
+</html>

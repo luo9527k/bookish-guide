@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            top: 0;
+        }
+
+        canvas {
+            position: fixed;
+            margin: 0;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- canvas dom -->
+    <canvas id="ripple"></canvas>
+
+    <!-- import js file -->
+    <script src="./index.js"></script>
+
+    <!-- animation -->
+    <script>
+        // get canvas
+        const canvas = document.querySelector('#ripple')
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+
+        // get image
+        const water_img = new Image()
+        water_img.src = './water.jpg' // set your image path here
+
+        // init
+        const water_ripple = new WaterRipple({
+            canvas: canvas,
+            background: water_img,
+        })
+
+        ////// animation //////
+        water_ripple.animate()
+
+        // set one ripple per second
+        setInterval(() => {
+            let x = Math.floor(Math.random() * canvas.width)
+            let y = Math.floor(Math.random() * canvas.height)
+            water_ripple.ripple(x, y)
+        }, 500)
+
+        // add mousemove event to canvas
+        water_ripple.addMousemove()
+    </script>
+</body>
+
+</html>

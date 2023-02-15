@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空调</title>
+    <div class="air">
+        <!-- 空调机身 -->
+        <div class="air-body">
+            <!-- 品牌logo -->
+            <img class='air-logo' src="pc_midea_logo_s.png">
+            <!-- 温度显示屏 -->
+            <div class="air-screen">
+                <div class="air-number">
+                    <span id="temperature">26</span>
+                    <span class="air-number-span">°C</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 空调底部 -->
+        <div class="air-bottom">
+            <!-- 底部出风口 -->
+            <div class="air-bottom-main">
+                <!-- 底部出风口挡板 -->
+                <div id="outlet" class="air-bottom-outlet"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 遥控器 -->
+    <div class="ykq">
+        <!-- 开关按钮 -->
+        <div id="switch" class="ykq-switch">🔘</div>
+        <!-- 调高温度 -->
+        <div id="add" class="ykq-add">＋</div>
+        <!-- 调低温度 -->
+        <div id="minus" class="ykq-minus">–</div>
+        <!-- 遥控器logo -->
+        <img src="pc_midea_logo_s.png">
+    </div>
+</head>
+<style>
+    .air {
+        width: 645px;
+        margin: 20px auto;
+    }
+
+    .air-body {
+        position: relative;
+        width: 645px;
+        height: 174px;
+        background-color: #F0EFF2;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .air-logo {
+        position: absolute;
+        width: 70px;
+        height: 40px;
+        left: 40px;
+        bottom: 30px;
+        color: white;
+    }
+
+    .air-screen {
+        position: absolute;
+        right: 60px;
+        top: 59px;
+        width: 56px;
+        height: 56px;
+        background-color: #000;
+        border-radius: 50%;
+    }
+
+    .air-number {
+        /* 隐藏 */
+        display: none;
+        font-size: 20px;
+        color: #fff;
+        /* 居中 */
+        text-align: center;
+        line-height: 56px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .air-number-span {
+        position: absolute;
+        top: -8px;
+        right: 5px;
+        font-size: 12px;
+        transform: scale(0.5);
+    }
+
+
+    .air-bottom {
+        width: 645px;
+        height: 30px;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border: 5px solid #e0dfe2;
+        background-color: #9a9ea1;
+        box-sizing: border-box;
+    }
+
+    .air-bottom-main {
+        position: relative;
+        width: 560px;
+        margin: 0 auto;
+        height: 20px;
+        background-color: #666;
+    }
+
+    .air-bottom-outlet {
+        width: 556px;
+        height: 19px;
+        margin: 0 auto;
+        background-color: #9a9ea1;
+    }
+
+    .active {
+        animation: openair 2s ease forwards;
+    }
+
+    .unactive {
+        /* 沿着x轴旋转60度 */
+        transform: rotateX(60deg);
+        animation: closeair 2s ease forwards;
+    }
+
+    .ykq {
+        width: 120px;
+        height: 250px;
+        background-color: #e0dfe2;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #999;
+        padding-top: 20px;
+        box-sizing: border-box;
+        margin: 20px;
+    }
+
+    .ykq-switch {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+        margin: 0 auto;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .ykq-add,
+    .ykq-minus {
+        width: 30px;
+        height: 30px;
+        line-height: 25px;
+        border-radius: 50%;
+        margin: 20px auto;
+        text-align: center;
+        font-size: 24px;
+        background-color: #a3a6a8;
+        color: #000;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    img {
+        width: 30px;
+        height: 20px;
+        margin-left: 45px;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    @keyframes openair {
+        to {
+            transform: rotateX(60deg);
+        }
+    }
+
+    @keyframes closeair {
+        to {
+            transform: rotateX(0deg);
+        }
+    }
+</style>
+
+<body>
+
+</body>
+<script>
+    var temperature = document.getElementById('temperature');
+    var outlet = document.getElementById('outlet');
+    var switchBtn = document.getElementById('switch');
+    var addBtn = document.getElementById('add');
+    var minusBtn = document.getElementById('minus');
+    var action = false;
+    var number = 26;
+
+
+    switchBtn.addEventListener('click', handleSwitch)
+    addBtn.addEventListener('click', add)
+    minusBtn.addEventListener('click', minus)
+    // 点击开关按钮事件，用action变量记录当前开关状态
+    function handleSwitch() {
+        if (action) {
+            closeair();
+            action = false;
+        } else {
+            openair();
+            action = true;
+        }
+    }
+
+    // 开空调，打开挡板，并显示温度
+    function openair() {
+        temperature.parentElement.style.display = 'block';
+        outlet.classList.remove('unactive');
+        outlet.classList.add('active');
+    }
+    // 关空调，关闭挡板，并隐藏温度
+    function closeair() {
+        temperature.parentElement.style.display = 'none';
+        outlet.classList.remove('active');
+        outlet.classList.add('unactive');
+    }
+
+    function minus() {
+        if (!action) return;
+        number--;
+        temperature.innerHTML = number;
+    }
+    function add() {
+        if (!action) return;
+        number++;
+        temperature.innerHTML = number;
+    }
+</script>
+
+</html>
